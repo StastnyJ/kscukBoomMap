@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Map from "./Components/map";
+import Background from "./Components/background";
+import Progressbar from "./Components/progressbar";
 
 function App() {
+  const [progress, setProgress] = useState(0);
+  const [exploredAreas, setExploredAreasRaw] = useState<number[]>(JSON.parse(localStorage.getItem("exploredAreas") || "[]"));
+
+  const setExploredAreas = (areas: number[]) => {
+    localStorage.setItem("exploredAreas", JSON.stringify(areas));
+    setExploredAreasRaw(areas);
+  };
+
+  // TODO make this controllable
+  useEffect(() => {
+    setTimeout(() => setProgress(progress < 1 ? progress + 0.01 : 0), 1000);
+  }, [progress]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Background />
+      <Map
+        exploredAreas={exploredAreas}
+        unlockArea={(a) => setExploredAreas([...exploredAreas, a])}
+        resetAreas={() => setExploredAreas([])}
+      />
+      <Progressbar progress={progress} />
+    </>
   );
 }
 
