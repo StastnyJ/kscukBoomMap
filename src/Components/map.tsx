@@ -58,7 +58,7 @@ export default function Map({ exploredAreas, unlockArea, resetAreas }: IProps) {
       {Object.keys(fowParts)
         .filter((key) => !exploredAreas.includes(parseInt(key)))
         .map((key) => (
-          <img alt="fow Part" style={{ ...positionStyle }} src={fowParts[parseInt(key)]} />
+          <img key={key} alt="fow Part" style={{ ...positionStyle }} src={fowParts[parseInt(key)]} />
         ))}
     </div>
   );
