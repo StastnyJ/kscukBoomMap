@@ -36,12 +36,9 @@ function App() {
         exploredAreas={exploredAreas}
         unlockArea={(a) => setExploredAreas([...exploredAreas, a])}
         resetAreas={() => setExploredAreas([])}
+        openController={() => setControllerMode(true)}
       />
       <Progressbar progress={progress} />
-      <div
-        style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "128px" }}
-        onClick={() => setControllerMode(true)}
-      ></div>
     </>
   );
 }
